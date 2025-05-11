@@ -1,0 +1,16 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontFile"
+uid="uid://wp0wvs6m60p0"
+valid=false
+
+[deps]
+
+source_file="res://Assets/8BitOperatorPlus8Regular_Edited.fnt"
+
+[params]
+
+fallbacks=[]
+compress=true
+scaling_mode=2
