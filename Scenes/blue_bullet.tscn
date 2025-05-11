@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://ckn1mtxvul5yv"]
+
+[ext_resource type="Script" uid="uid://b4kq3k5s51cpm" path="res://Base Classes/Bullets.gd" id="1_tqxcx"]
+[ext_resource type="Texture2D" uid="uid://cw5q2unlacwfp" path="res://Assets/Bullet.png" id="2_0iigb"]
+[ext_resource type="Script" uid="uid://6malu6ordc1k" path="res://Components/HitBox.gd" id="3_0iigb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0iigb"]
+size = Vector2(6, 4)
+
+[sub_resource type="Gradient" id="Gradient_0iigb"]
+offsets = PackedFloat32Array(0, 0.688312)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_et4f2"]
+gradient = SubResource("Gradient_0iigb")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="BlueBullet" type="Node2D" node_paths=PackedStringArray("hitbox")]
+script = ExtResource("1_tqxcx")
+speed = 400
+hitbox = NodePath("HitBox")
+metadata/_custom_type_script = "uid://b4kq3k5s51cpm"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_0iigb")
+
+[node name="HitBox" type="Area2D" parent="."]
+script = ExtResource("3_0iigb")
+damage = 1.0
+metadata/_custom_type_script = "uid://6malu6ordc1k"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("RectangleShape2D_0iigb")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.318543, 1, 0.85087, 1)
+energy = 0.5
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_et4f2")
+texture_scale = 0.2

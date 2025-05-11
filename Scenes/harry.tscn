@@ -1,0 +1,109 @@
+[gd_scene load_steps=14 format=3 uid="uid://jyf4ma2oj3c"]
+
+[ext_resource type="Script" uid="uid://0vm5n22dqcah" path="res://Base Classes/Characters.gd" id="1_12ahf"]
+[ext_resource type="Texture2D" uid="uid://cnq5duoeqkgka" path="res://Assets/Player1.png" id="2_eogk2"]
+[ext_resource type="Texture2D" uid="uid://x5paswvha2er" path="res://Assets/Player2.png" id="3_epekh"]
+[ext_resource type="Texture2D" uid="uid://4r22w66gf5v3" path="res://Assets/Player3.png" id="4_18fww"]
+[ext_resource type="Texture2D" uid="uid://bj2ql6opymqr6" path="res://Assets/Player4.png" id="5_p1u4r"]
+[ext_resource type="Script" uid="uid://b5mvlw8t4rab3" path="res://Components/HurtBox.gd" id="7_18fww"]
+[ext_resource type="PackedScene" uid="uid://baann7mu5a4sh" path="res://Scenes/blue_gun.tscn" id="8_18fww"]
+[ext_resource type="Script" uid="uid://3b8x0bwypmac" path="res://Components/HealthComponent.gd" id="8_p1u4r"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dtu04"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_epekh")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_eogk2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_epekh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_18fww")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_p1u4r")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gflio"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_18fww"]
+radius = 9.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_18fww"]
+bg_color = Color(0, 0.435843, 5.77569e-07, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p1u4r"]
+bg_color = Color(0, 0.847059, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="Harry" type="CharacterBody2D" node_paths=PackedStringArray("gun", "healthComponent", "sprite", "hurtBox") groups=["Characters"]]
+collision_layer = 2
+script = ExtResource("1_12ahf")
+gun = NodePath("BlueGun")
+healthComponent = NodePath("HealthComponent")
+speed = 100
+sprite = NodePath("AnimatedSprite2D")
+hurtBox = NodePath("HurtBox")
+metadata/_custom_type_script = "uid://0vm5n22dqcah"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_dtu04")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7)
+shape = SubResource("CircleShape2D_gflio")
+
+[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("healthComponent")]
+disable_mode = 1
+collision_layer = 0
+collision_mask = 8
+collision_priority = 2.0
+monitorable = false
+priority = 2
+script = ExtResource("7_18fww")
+healthComponent = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://b5mvlw8t4rab3"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, 7)
+shape = SubResource("CircleShape2D_18fww")
+
+[node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("healthBar")]
+script = ExtResource("8_p1u4r")
+health = 10.0
+healthBar = NodePath("../HealthBar")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -29.0
+offset_top = -19.0
+offset_right = 28.0
+offset_bottom = -13.0
+theme_override_styles/background = SubResource("StyleBoxFlat_18fww")
+theme_override_styles/fill = SubResource("StyleBoxFlat_p1u4r")
+value = 50.0
+show_percentage = false
+
+[node name="BlueGun" parent="." instance=ExtResource("8_18fww")]
+position = Vector2(-1, 4)

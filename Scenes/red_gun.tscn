@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dccfb2t68phlx"]
+
+[ext_resource type="Script" uid="uid://bb7j65irp4yw5" path="res://Base Classes/GunsBase.gd" id="1_hw58e"]
+[ext_resource type="Texture2D" uid="uid://bhfm6a4fnknon" path="res://Assets/Gun2.png" id="2_dh0ne"]
+[ext_resource type="Script" uid="uid://din7l73nshdij" path="res://Components/ShootingComponent.gd" id="3_8jldl"]
+[ext_resource type="PackedScene" uid="uid://uylbh71hvuge" path="res://Scenes/red_bullet.tscn" id="4_dh0ne"]
+
+[node name="RedGun" type="Node2D" node_paths=PackedStringArray("sprite", "shootingComponent")]
+script = ExtResource("1_hw58e")
+sprite = NodePath("Sprite2D")
+shootingComponent = NodePath("ShootingComponent")
+metadata/_custom_type_script = "uid://bb7j65irp4yw5"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4, 1)
+texture = ExtResource("2_dh0ne")
+
+[node name="ShootingComponent" type="Node" parent="." node_paths=PackedStringArray("shootingPoint")]
+script = ExtResource("3_8jldl")
+bulletScene = ExtResource("4_dh0ne")
+shootingPoint = NodePath("../ShootingPoint")
+cooldown = 0.3
+metadata/_custom_type_script = "uid://din7l73nshdij"
+
+[node name="ShootingPoint" type="Marker2D" parent="."]
+position = Vector2(15, -2)

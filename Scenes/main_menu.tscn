@@ -1,0 +1,134 @@
+[gd_scene load_steps=7 format=3 uid="uid://db0yl1fmfknue"]
+
+[ext_resource type="Script" uid="uid://bn76co0s4jqwb" path="res://Scripts/main_menu.gd" id="1_1ehe0"]
+[ext_resource type="FontFile" uid="uid://d4j6jp6ed5je6" path="res://Assets/Fonts/upheavel/upheavtt.ttf" id="2_n45e2"]
+[ext_resource type="FontFile" uid="uid://dlphm02wh1ehu" path="res://Assets/Fonts/04b_30/04B_30__.TTF" id="4_n45e2"]
+[ext_resource type="StyleBox" uid="uid://c7bs63y00hjjt" path="res://Scenes/buttons_style.tres" id="4_opfnp"]
+[ext_resource type="AudioStream" uid="uid://ctgbplnvd6jjd" path="res://Assets/Music/cosmos-space-game-action-shooter-astronauts-scifi-aliens-142978.mp3" id="5_n45e2"]
+[ext_resource type="LabelSettings" uid="uid://r7kc18qu6mx6" path="res://Scenes/label_settings.tres" id="5_opfnp"]
+
+[node name="MainMenu" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1ehe0")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_right = 768.0
+offset_bottom = 79.0
+theme_override_fonts/font = ExtResource("2_n45e2")
+theme_override_font_sizes/font_size = 64
+text = "Shoot Till End 2"
+horizontal_alignment = 1
+
+[node name="PlayButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -268.0
+offset_top = 28.0
+offset_right = -63.0
+offset_bottom = 84.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_n45e2")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_opfnp")
+text = "Play"
+
+[node name="UpgradeButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -268.0
+offset_top = 134.0
+offset_right = -63.0
+offset_bottom = 190.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_n45e2")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_opfnp")
+text = "Upgrades"
+
+[node name="SettingsButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 519.0
+offset_top = 244.0
+offset_right = 724.0
+offset_bottom = 300.0
+theme_override_fonts/font = ExtResource("4_n45e2")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_opfnp")
+text = "Settings
+"
+
+[node name="QuitButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 519.0
+offset_top = 350.0
+offset_right = 724.0
+offset_bottom = 406.0
+theme_override_fonts/font = ExtResource("4_n45e2")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_opfnp")
+text = "Quit
+"
+
+[node name="ScoreLabel" type="Label" parent="."]
+layout_mode = 0
+offset_top = 79.0
+offset_right = 768.0
+offset_bottom = 112.0
+text = "Current Score : 0"
+label_settings = ExtResource("5_opfnp")
+horizontal_alignment = 1
+
+[node name="HighScoreLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -96.0
+offset_bottom = -73.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "High Score : 0"
+label_settings = ExtResource("5_opfnp")
+horizontal_alignment = 1
+
+[node name="LevelLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -53.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Level : 1"
+label_settings = ExtResource("5_opfnp")
+horizontal_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_n45e2")
+autoplay = true
+bus = &"Music"
+
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="UpgradeButton" to="." method="_on_upgrade_button_pressed"]
+[connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]

@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://dhvn6asb3wkub"]
+
+[ext_resource type="Script" uid="uid://b4kq3k5s51cpm" path="res://Base Classes/Bullets.gd" id="1_7ljjo"]
+[ext_resource type="Texture2D" uid="uid://iqu77h6nccco" path="res://Assets/EnemyBullet1.png" id="2_d3hbi"]
+[ext_resource type="Texture2D" uid="uid://d14kmt0lkyc68" path="res://Assets/EnemyBullet2.png" id="3_jjdh0"]
+[ext_resource type="Script" uid="uid://6malu6ordc1k" path="res://Components/HitBox.gd" id="4_d3hbi"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d3hbi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_d3hbi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jjdh0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jjdh0"]
+radius = 7.07107
+
+[sub_resource type="Gradient" id="Gradient_iu78k"]
+colors = PackedColorArray(0.992157, 0, 0.180392, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qciqf"]
+gradient = SubResource("Gradient_iu78k")
+fill = 1
+fill_from = Vector2(0.52439, 0.512195)
+fill_to = Vector2(0.640244, 0.676829)
+
+[node name="Bullets" type="Node2D" node_paths=PackedStringArray("hitbox")]
+script = ExtResource("1_7ljjo")
+speed = 300
+hitbox = NodePath("HitBox")
+metadata/_custom_type_script = "uid://b4kq3k5s51cpm"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_d3hbi")
+
+[node name="HitBox" type="Area2D" parent="."]
+visible = false
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("4_d3hbi")
+metadata/_custom_type_script = "uid://6malu6ordc1k"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(4, 0)
+shape = SubResource("CircleShape2D_jjdh0")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.952051, 0, 0.178535, 1)
+energy = 1.62
+texture = SubResource("GradientTexture2D_qciqf")

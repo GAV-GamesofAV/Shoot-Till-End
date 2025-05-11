@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4h5prbab0v6l"]
+
+[ext_resource type="Script" uid="uid://b6770ejuw8lo3" path="res://Base Classes/Backgrounds.gd" id="1_pojwb"]
+[ext_resource type="Texture2D" uid="uid://5fup5600tdlc" path="res://Assets/TheRoom.png" id="2_4aqey"]
+[ext_resource type="Texture2D" uid="uid://j2eqtwwgl2w2" path="res://Assets/Vingette.png" id="3_fr46g"]
+
+[node name="Room" type="Node2D" groups=["Background"]]
+script = ExtResource("1_pojwb")
+minX = 29
+minY = 56
+maxX = 355
+maxY = 185
+metadata/_custom_type_script = "uid://b6770ejuw8lo3"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_4aqey")
+centered = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+z_index = 1000
+texture = ExtResource("3_fr46g")
+centered = false

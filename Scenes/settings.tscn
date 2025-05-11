@@ -1,0 +1,110 @@
+[gd_scene load_steps=6 format=3 uid="uid://bqp4byx1rb2x6"]
+
+[ext_resource type="Script" uid="uid://x14liamc5bx" path="res://Scripts/settings.gd" id="1_i44u3"]
+[ext_resource type="LabelSettings" uid="uid://r7kc18qu6mx6" path="res://Scenes/label_settings.tres" id="2_aaqfp"]
+[ext_resource type="FontFile" uid="uid://dlphm02wh1ehu" path="res://Assets/Fonts/04b_30/04B_30__.TTF" id="3_aaqfp"]
+[ext_resource type="AudioStream" uid="uid://ctgbplnvd6jjd" path="res://Assets/Music/cosmos-space-game-action-shooter-astronauts-scifi-aliens-142978.mp3" id="4_aaqfp"]
+[ext_resource type="StyleBox" uid="uid://c7bs63y00hjjt" path="res://Scenes/buttons_style.tres" id="4_j2dne"]
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i44u3")
+metadata/_edit_horizontal_guides_ = [284.0]
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 207.0
+offset_top = 66.0
+offset_right = 255.0
+offset_bottom = 89.0
+scale = Vector2(1.2, 1.2)
+text = "SFX"
+label_settings = ExtResource("2_aaqfp")
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 185.0
+offset_top = 118.0
+offset_right = 262.0
+offset_bottom = 141.0
+scale = Vector2(1.2, 1.2)
+text = "Music"
+label_settings = ExtResource("2_aaqfp")
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 138.0
+offset_top = 157.0
+offset_right = 247.0
+offset_bottom = 180.0
+scale = Vector2(1.2, 1.2)
+text = "Vibration"
+label_settings = ExtResource("2_aaqfp")
+
+[node name="SFXSlider" type="HSlider" parent="."]
+texture_filter = 2
+layout_mode = 0
+offset_left = 271.0
+offset_top = 66.0
+offset_right = 641.0
+offset_bottom = 89.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="MusicSlider" type="HSlider" parent="."]
+texture_filter = 2
+layout_mode = 0
+offset_left = 271.0
+offset_top = 118.0
+offset_right = 641.0
+offset_bottom = 141.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 298.0
+offset_top = 301.0
+offset_right = 458.0
+offset_bottom = 354.0
+theme_override_fonts/font = ExtResource("3_aaqfp")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_j2dne")
+text = "Back"
+
+[node name="ResetGameProgressButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 219.0
+offset_top = 245.0
+offset_right = 549.0
+offset_bottom = 274.0
+theme_override_fonts/font = ExtResource("3_aaqfp")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("4_j2dne")
+text = "Reset Game Progress"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_aaqfp")
+autoplay = true
+bus = &"Music"
+
+[node name="VibrateButton" type="CheckButton" parent="."]
+layout_mode = 0
+offset_left = 229.0
+offset_top = 141.0
+offset_right = 304.0
+offset_bottom = 180.0
+scale = Vector2(1.5, 1.5)
+
+[connection signal="value_changed" from="SFXSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="value_changed" from="MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="ResetGameProgressButton" to="." method="_on_reset_game_progress_button_pressed"]
+[connection signal="pressed" from="VibrateButton" to="." method="_on_vibrate_button_pressed"]

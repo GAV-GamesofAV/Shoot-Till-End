@@ -1,0 +1,171 @@
+[gd_scene load_steps=23 format=3 uid="uid://bjq3y6l45jcnm"]
+
+[ext_resource type="Script" uid="uid://cyx26b5soq8fd" path="res://Scripts/imp.gd" id="1_gx5f0"]
+[ext_resource type="Texture2D" uid="uid://y4hqkilf6p" path="res://Assets/ImpHurt.png" id="2_se12o"]
+[ext_resource type="Texture2D" uid="uid://gob7fjyxys13" path="res://Assets/Imp1.png" id="3_qpbr4"]
+[ext_resource type="Texture2D" uid="uid://wmu8p5yrf6i0" path="res://Assets/Imp2.png" id="4_xs4i4"]
+[ext_resource type="Texture2D" uid="uid://d106kxxvp0vjj" path="res://Assets/Imp3.png" id="5_3vqth"]
+[ext_resource type="Texture2D" uid="uid://pkbcphe4jmag" path="res://Assets/Imp4.png" id="6_nq8c4"]
+[ext_resource type="Texture2D" uid="uid://dd38hxpgn63ty" path="res://Assets/Imp5.png" id="7_j56hq"]
+[ext_resource type="Texture2D" uid="uid://wvraivkj0e81" path="res://Assets/Imp6.png" id="8_nmixf"]
+[ext_resource type="Texture2D" uid="uid://c6lvmm0mcnw0r" path="res://Assets/ImpFly1.png" id="9_174lv"]
+[ext_resource type="Texture2D" uid="uid://nlbe8ow5ol77" path="res://Assets/ImpFly2.png" id="10_pjxui"]
+[ext_resource type="Texture2D" uid="uid://cqtaae322hawk" path="res://Assets/ImpFly3.png" id="11_hhh8x"]
+[ext_resource type="Script" uid="uid://6malu6ordc1k" path="res://Components/HitBox.gd" id="12_wmouj"]
+[ext_resource type="Script" uid="uid://b5mvlw8t4rab3" path="res://Components/HurtBox.gd" id="13_db614"]
+[ext_resource type="Script" uid="uid://3b8x0bwypmac" path="res://Components/HealthComponent.gd" id="14_ywj5o"]
+[ext_resource type="Script" uid="uid://din7l73nshdij" path="res://Components/ShootingComponent.gd" id="15_qpbr4"]
+[ext_resource type="PackedScene" uid="uid://dhvn6asb3wkub" path="res://Scenes/impactor_bullet.tscn" id="16_xs4i4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q01k5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_174lv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_pjxui")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_hhh8x")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_se12o")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_3vqth")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xs4i4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qpbr4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xs4i4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3vqth")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_nq8c4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_j56hq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_nmixf")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j5cp8"]
+radius = 6.08276
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dyud3"]
+radius = 8.06226
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w5o14"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2b40u"]
+bg_color = Color(0.632225, 1.9493e-06, 3.36915e-07, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqrm2"]
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="Imp" type="CharacterBody2D" node_paths=PackedStringArray("shootingPoint", "hitBox", "healthComponent", "sprite", "hurtBox") groups=["Enemies"]]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_gx5f0")
+shootingPoint = NodePath("ShootingPoint")
+distanceToShoot = 100
+scorePoints = 100
+hitBox = NodePath("HitBox")
+healthComponent = NodePath("HealthComponent")
+speed = 30
+sprite = NodePath("AnimatedSprite2D")
+hurtBox = NodePath("HurtBox")
+metadata/_custom_type_script = "uid://d0jykv1qiwomx"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_q01k5")
+animation = &"fly"
+autoplay = "fly"
+frame = 2
+frame_progress = 0.855498
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 10)
+shape = SubResource("CircleShape2D_j5cp8")
+
+[node name="HitBox" type="Area2D" parent="."]
+visible = false
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("12_wmouj")
+damage = 3.0
+metadata/_custom_type_script = "uid://6malu6ordc1k"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, 6)
+shape = SubResource("CircleShape2D_dyud3")
+debug_color = Color(0.982314, 0, 0.3633, 0.42)
+
+[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("healthComponent")]
+visible = false
+script = ExtResource("13_db614")
+healthComponent = NodePath("../HealthComponent")
+parentIsEnemy = true
+metadata/_custom_type_script = "uid://b5mvlw8t4rab3"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_w5o14")
+
+[node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("healthBar")]
+script = ExtResource("14_ywj5o")
+health = 5.0
+healthBar = NodePath("../HealthBar")
+metadata/_custom_type_script = "uid://3b8x0bwypmac"
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -26.0
+offset_top = -27.0
+offset_right = 28.0
+offset_bottom = -20.0
+theme_override_styles/background = SubResource("StyleBoxFlat_2b40u")
+theme_override_styles/fill = SubResource("StyleBoxFlat_kqrm2")
+value = 60.0
+show_percentage = false
+
+[node name="ShootingComponent" type="Node" parent="." node_paths=PackedStringArray("shootingPoint")]
+script = ExtResource("15_qpbr4")
+bulletScene = ExtResource("16_xs4i4")
+shootingPoint = NodePath("../ShootingPoint")
+metadata/_custom_type_script = "uid://din7l73nshdij"
+
+[node name="ShootingPoint" type="Marker2D" parent="."]
+position = Vector2(2, -6)
+
+[connection signal="attacked" from="HitBox" to="." method="_on_hit_box_attacked"]

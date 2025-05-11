@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://baann7mu5a4sh"]
+
+[ext_resource type="Script" uid="uid://bb7j65irp4yw5" path="res://Base Classes/GunsBase.gd" id="1_qju76"]
+[ext_resource type="Texture2D" uid="uid://cos5we0hjja24" path="res://Assets/Gun1.png" id="2_xp0a4"]
+[ext_resource type="Script" uid="uid://din7l73nshdij" path="res://Components/ShootingComponent.gd" id="3_xp0a4"]
+[ext_resource type="PackedScene" uid="uid://ckn1mtxvul5yv" path="res://Scenes/blue_bullet.tscn" id="4_mcfls"]
+[ext_resource type="AudioStream" uid="uid://bmhcccbodl43j" path="res://Assets/SFX/ShootingSoundEffect1.mp3" id="5_qju76"]
+
+[node name="BlueGun" type="Node2D" node_paths=PackedStringArray("sprite", "shootingComponent")]
+script = ExtResource("1_qju76")
+sprite = NodePath("Sprite2D")
+shootingComponent = NodePath("ShootingComponent")
+playerGun = true
+metadata/_custom_type_script = "uid://bb7j65irp4yw5"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_xp0a4")
+
+[node name="ShootingComponent" type="Node" parent="." node_paths=PackedStringArray("shootingPoint", "sfxPlayer")]
+script = ExtResource("3_xp0a4")
+bulletScene = ExtResource("4_mcfls")
+shootingPoint = NodePath("../ShootingPoint")
+sfxPlayer = NodePath("../AudioStreamPlayer")
+shakeScreen = true
+shakeIntensity = 1.5
+metadata/_custom_type_script = "uid://din7l73nshdij"
+
+[node name="ShootingPoint" type="Marker2D" parent="."]
+position = Vector2(12, -2)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_qju76")
+bus = &"SFX"

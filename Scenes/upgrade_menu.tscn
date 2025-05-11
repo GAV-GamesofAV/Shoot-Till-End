@@ -1,0 +1,131 @@
+[gd_scene load_steps=9 format=3 uid="uid://dnfk37wm627pb"]
+
+[ext_resource type="Script" uid="uid://dpsd56ljevuu7" path="res://Scripts/upgrade_menu.gd" id="1_ltp0x"]
+[ext_resource type="FontFile" uid="uid://duj6xvbj3ke74" path="res://Assets/airstrikeexpand.ttf" id="2_11363"]
+[ext_resource type="LabelSettings" uid="uid://r7kc18qu6mx6" path="res://Scenes/label_settings.tres" id="3_f5dmy"]
+[ext_resource type="FontFile" uid="uid://dlphm02wh1ehu" path="res://Assets/Fonts/04b_30/04B_30__.TTF" id="4_f5dmy"]
+[ext_resource type="StyleBox" uid="uid://c7bs63y00hjjt" path="res://Scenes/buttons_style.tres" id="5_lhh40"]
+
+[sub_resource type="Animation" id="Animation_f5dmy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 96)]
+}
+
+[sub_resource type="Animation" id="Animation_6gn5s"]
+resource_name = "shake"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.5, 0.7, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 96), Vector2(-20, 96), Vector2(16, 96), Vector2(-17, 96), Vector2(12, 96), Vector2(0, 96)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lhh40"]
+_data = {
+&"RESET": SubResource("Animation_f5dmy"),
+&"shake": SubResource("Animation_6gn5s")
+}
+
+[node name="UpgradeMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ltp0x")
+
+[node name="XPbar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_top = 42.0
+offset_right = 768.0
+offset_bottom = 83.0
+theme_override_fonts/font = ExtResource("2_11363")
+theme_override_font_sizes/font_size = 24
+
+[node name="XPLabel" type="Label" parent="."]
+layout_mode = 0
+offset_top = 10.0
+offset_right = 640.0
+offset_bottom = 33.0
+scale = Vector2(1.2, 1.2)
+text = "1000/1000"
+label_settings = ExtResource("3_f5dmy")
+horizontal_alignment = 1
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 312.0
+offset_top = 389.0
+offset_right = 447.0
+offset_bottom = 422.0
+theme_override_fonts/font = ExtResource("4_f5dmy")
+theme_override_styles/normal = ExtResource("5_lhh40")
+text = "Back"
+
+[node name="StatLabel" type="Label" parent="."]
+layout_mode = 0
+offset_top = 96.0
+offset_right = 768.0
+offset_bottom = 119.0
+text = "Stats Available : 0"
+label_settings = ExtResource("3_f5dmy")
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StatLabel"]
+libraries = {
+&"": SubResource("AnimationLibrary_lhh40")
+}
+
+[node name="Upgrades" type="Node" parent="."]
+
+[node name="HealthUpgradeButton" type="Button" parent="Upgrades"]
+offset_left = 299.0
+offset_top = 174.0
+offset_right = 491.0
+offset_bottom = 205.0
+theme_override_fonts/font = ExtResource("4_f5dmy")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("5_lhh40")
+text = "Upgrade Health - 1"
+
+[node name="DamageUpgradeButton" type="Button" parent="Upgrades"]
+offset_left = 299.0
+offset_top = 232.0
+offset_right = 485.0
+offset_bottom = 263.0
+theme_override_fonts/font = ExtResource("4_f5dmy")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("5_lhh40")
+text = "Upgrade Damage - 1"
+
+[node name="FireRateUpgradeButton" type="Button" parent="Upgrades"]
+offset_left = 299.0
+offset_top = 284.0
+offset_right = 485.0
+offset_bottom = 315.0
+theme_override_fonts/font = ExtResource("4_f5dmy")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("5_lhh40")
+text = "Upgrade Fire Rate - 1"
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Upgrades/HealthUpgradeButton" to="." method="_on_health_upgrade_button_pressed"]
+[connection signal="pressed" from="Upgrades/DamageUpgradeButton" to="." method="_on_damage_upgrade_button_pressed"]
+[connection signal="pressed" from="Upgrades/FireRateUpgradeButton" to="." method="_on_fire_rate_upgrade_button_pressed"]

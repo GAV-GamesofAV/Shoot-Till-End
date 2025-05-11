@@ -1,0 +1,154 @@
+[gd_scene load_steps=16 format=3 uid="uid://b71e5cuu5mygh"]
+
+[ext_resource type="Script" uid="uid://bjq6r34xcsn3l" path="res://Scripts/MainGame.gd" id="1_bb2iq"]
+[ext_resource type="PackedScene" uid="uid://cil1jnbo3bdou" path="res://Scenes/ghost.tscn" id="2_18r40"]
+[ext_resource type="PackedScene" uid="uid://bq3kspr6i3mac" path="res://Scenes/spider.tscn" id="3_tpqse"]
+[ext_resource type="PackedScene" uid="uid://bjq3y6l45jcnm" path="res://Scenes/imp.tscn" id="4_c78sm"]
+[ext_resource type="PackedScene" uid="uid://b4h5prbab0v6l" path="res://Scenes/room.tscn" id="5_r0mdn"]
+[ext_resource type="PackedScene" uid="uid://jyf4ma2oj3c" path="res://Scenes/harry.tscn" id="6_0xqxu"]
+[ext_resource type="Script" uid="uid://bo7v0oxck5mht" path="res://Scripts/camera_2d.gd" id="7_73nn6"]
+[ext_resource type="AudioStream" uid="uid://bux6dnff7l4c6" path="res://Assets/Music/epic-revenge-dubstep-281131.mp3" id="8_6y7pd"]
+[ext_resource type="LabelSettings" uid="uid://r7kc18qu6mx6" path="res://Scenes/label_settings.tres" id="8_tpqse"]
+[ext_resource type="Texture2D" uid="uid://c8gdkb5qcwbtk" path="res://Assets/icons8-pause-button-50.png" id="9_0xqxu"]
+[ext_resource type="PackedScene" uid="uid://dhn71ahyer4ys" path="res://Components/JoyStick/JoyStick.tscn" id="10_i47ox"]
+[ext_resource type="Script" uid="uid://bqr14ehplr8ci" path="res://Scripts/pause_menu.gd" id="11_tpqse"]
+[ext_resource type="FontFile" uid="uid://dlphm02wh1ehu" path="res://Assets/Fonts/04b_30/04B_30__.TTF" id="12_tpqse"]
+[ext_resource type="StyleBox" uid="uid://c7bs63y00hjjt" path="res://Scenes/buttons_style.tres" id="13_c78sm"]
+
+[sub_resource type="Curve2D" id="Curve2D_kry3j"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 216, 0, 0, 0, 0, 384, 216, 0, 0, 0, 0, 384, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[node name="MainGame" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_bb2iq")
+enemies = Array[PackedScene]([ExtResource("2_18r40"), ExtResource("3_tpqse"), ExtResource("4_c78sm")])
+
+[node name="Room" parent="." instance=ExtResource("5_r0mdn")]
+
+[node name="Harry" parent="." node_paths=PackedStringArray("joystick", "gunJoystick") instance=ExtResource("6_0xqxu")]
+position = Vector2(211, 133)
+joystick = NodePath("../UI/MobileControls/JoyStickUI/JoyStick")
+joystickThreshold = 0.2
+gunJoystick = NodePath("../UI/MobileControls/GunJoystickUI/GunJoystick")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(194, 109)
+ignore_rotation = false
+zoom = Vector2(2, 2)
+script = ExtResource("7_73nn6")
+
+[node name="EnemySpawner" type="Path2D" parent="."]
+curve = SubResource("Curve2D_kry3j")
+
+[node name="EnemySpawnLocation" type="PathFollow2D" parent="EnemySpawner"]
+rotation = 1.5708
+
+[node name="EnemySpawnTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ScoreLabel" type="Label" parent="UI"]
+offset_right = 589.0
+offset_bottom = 23.0
+size_flags_vertical = 2
+text = "Score : 0"
+label_settings = ExtResource("8_tpqse")
+
+[node name="PauseButton" type="TextureButton" parent="UI"]
+offset_left = 712.0
+offset_right = 762.0
+offset_bottom = 50.0
+texture_normal = ExtResource("9_0xqxu")
+
+[node name="MobileControls" type="CanvasLayer" parent="UI"]
+
+[node name="JoyStickUI" type="Control" parent="UI/MobileControls"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 256.0
+offset_right = 210.0
+offset_bottom = 432.0
+
+[node name="JoyStick" parent="UI/MobileControls/JoyStickUI" instance=ExtResource("10_i47ox")]
+position = Vector2(110, 93)
+scale = Vector2(0.6, 0.6)
+
+[node name="GunJoystickUI" type="Control" parent="UI/MobileControls"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 589.0
+offset_top = 256.0
+offset_right = 768.0
+offset_bottom = 432.0
+
+[node name="GunJoystick" parent="UI/MobileControls/GunJoystickUI" instance=ExtResource("10_i47ox")]
+position = Vector2(82, 93)
+scale = Vector2(0.6, 0.6)
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_6y7pd")
+autoplay = true
+bus = &"Music"
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+process_mode = 3
+visible = false
+script = ExtResource("11_tpqse")
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.431373)
+
+[node name="Panel" type="Control" parent="PauseMenu"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResumeButton" type="Button" parent="PauseMenu/Panel"]
+layout_mode = 0
+offset_left = 293.0
+offset_top = 137.0
+offset_right = 493.0
+offset_bottom = 177.0
+theme_override_fonts/font = ExtResource("12_tpqse")
+theme_override_styles/normal = ExtResource("13_c78sm")
+text = "Resume"
+
+[node name="RestartButton" type="Button" parent="PauseMenu/Panel"]
+layout_mode = 0
+offset_left = 293.0
+offset_top = 216.0
+offset_right = 493.0
+offset_bottom = 256.0
+theme_override_fonts/font = ExtResource("12_tpqse")
+theme_override_styles/normal = ExtResource("13_c78sm")
+text = "Restart"
+
+[node name="QuitButton" type="Button" parent="PauseMenu/Panel"]
+layout_mode = 0
+offset_left = 293.0
+offset_top = 297.0
+offset_right = 493.0
+offset_bottom = 337.0
+theme_override_fonts/font = ExtResource("12_tpqse")
+theme_override_styles/normal = ExtResource("13_c78sm")
+text = "Quit"
+
+[node name="PowerUpSpawnTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="pressed" from="UI/PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="PauseMenu/Panel/ResumeButton" to="PauseMenu" method="_on_resume_button_pressed"]
+[connection signal="pressed" from="PauseMenu/Panel/RestartButton" to="PauseMenu" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="PauseMenu/Panel/QuitButton" to="PauseMenu" method="_on_quit_button_pressed"]
