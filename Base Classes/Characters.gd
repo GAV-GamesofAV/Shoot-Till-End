@@ -19,7 +19,7 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 
-	if get_parent().mainGameReady:
+	if Global.gameReady:
 		var direction
 		#Movement
 		if not Global.isMobile:
@@ -52,6 +52,8 @@ func _physics_process(_delta: float) -> void:
 				sprite.flip_h = false
 		
 func game_over():
+	Global.gameReady = false
+	Global.gameOver = true
 	get_tree().change_scene_to_packed(Global.mainMenuScene)
 
 func _took_damage():

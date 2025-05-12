@@ -26,20 +26,21 @@ func is_touch_inside(pos: Vector2) -> bool:
 
 #New
 func _input(event: InputEvent) -> void:
-    if event is InputEventScreenTouch:
-        if event.pressed:
-            if is_touch_inside(event.position) and not pressing:
-                pressing = true
-                touchIndex = event.index
-                touchPos = event.position
-        else:
-            if event.index == touchIndex:
-                pressing = false
-                touchIndex = -1
-                parent.pressing = false
-    
-    elif event is InputEventScreenDrag and event.index == touchIndex:
-        touchPos = event.position
+    if Global.gameReady:
+        if event is InputEventScreenTouch:
+            if event.pressed:
+                if is_touch_inside(event.position) and not pressing:
+                    pressing = true
+                    touchIndex = event.index
+                    touchPos = event.position
+            else:
+                if event.index == touchIndex:
+                    pressing = false
+                    touchIndex = -1
+                    parent.pressing = false
+        
+        elif event is InputEventScreenDrag and event.index == touchIndex:
+            touchPos = event.position
 
 
 
@@ -59,20 +60,21 @@ func _process(delta: float) -> void:
     #     parent.posVector = Vector2.ZERO
 
     #New
-    if pressing:
-        var dist = touchPos.distance_to(parent.global_position)
-        if dist <= maxLength:
-            global_position = touchPos
+    if Global.gameReady:
+        if pressing:
+            var dist = touchPos.distance_to(parent.global_position)
+            if dist <= maxLength:
+                global_position = touchPos
+            else:
+                var angle = parent.global_position.angle_to_point(touchPos)
+                global_position.x = parent.global_position.x + cos(angle) * maxLength
+                global_position.y = parent.global_position.y + sin(angle) * maxLength
+            
+            calculate_vector_and_angle()
+            parent.pressing = true
         else:
-            var angle = parent.global_position.angle_to_point(touchPos)
-            global_position.x = parent.global_position.x + cos(angle) * maxLength
-            global_position.y = parent.global_position.y + sin(angle) * maxLength
-        
-        calculate_vector_and_angle()
-        parent.pressing = true
-    else:
-        global_position = lerp(global_position, parent.global_position, delta * 20)
-        parent.posVector = Vector2.ZERO
+            global_position = lerp(global_position, parent.global_position, delta * 20)
+            parent.posVector = Vector2.ZERO
 
 
 func calculate_vector_and_angle():

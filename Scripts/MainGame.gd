@@ -1,6 +1,5 @@
 extends Node2D
 
-signal mainGame_ready
 
 #node references
 @onready var enemySpawnLocation: PathFollow2D = $EnemySpawner/EnemySpawnLocation
@@ -18,10 +17,10 @@ signal mainGame_ready
 
 #Variables
 var playArea: Background
-var mainGameReady: bool = false
 
 func _ready() -> void:
 	get_tree().paused = false
+	Global.gameReady = false
 	$PauseMenu.hide()
 
 	#Set-up mobile controls:
@@ -62,12 +61,13 @@ func _ready() -> void:
 	$EnemySpawnTimer.timeout.connect(spawnEnemy)
 
 	
-	mainGameReady = true
-	
-	
-	mainGame_ready.emit()
+	Global.game_ready.emit()
+	Global.gameReady = true
 
-	if mainGameReady:
+	Global.gameOver = false
+	
+
+	if Global.gameReady:
 		$EnemySpawnTimer.start()
 
 func _input(event: InputEvent) -> void:
@@ -104,8 +104,9 @@ func spawnEnemy():
 	$EnemySpawnTimer.wait_time = get_spawn_interval()
 	$EnemySpawnTimer.start()
 
-	if mainGameReady:
-		mainGame_ready.emit()
+	if Global.gameReady:
+		Global.game_ready.emit()
+
 
 
 	

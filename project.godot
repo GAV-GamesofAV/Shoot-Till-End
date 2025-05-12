@@ -14,7 +14,7 @@ config/name="Shoot till end"
 config/version="beta 1.0"
 run/main_scene="uid://db0yl1fmfknue"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="uid://dqhp3j7ot8rci"
+config/icon="uid://bwmpbp2nyu87c"
 
 [autoload]
 

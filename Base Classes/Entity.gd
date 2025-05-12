@@ -7,6 +7,7 @@ class_name Entity
 @export var hurtBox: HurtBox
 
 func move(direction):
-	if direction:
-		velocity = direction * speed
-		move_and_slide()
+	if Global.gameReady and not Global.gameOver:
+		if direction:
+			velocity = direction * speed
+			move_and_slide()

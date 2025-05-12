@@ -4,6 +4,8 @@ signal level_increased
 signal scoreChanged
 signal highScoreChanged
 
+signal game_ready #Emitted when the main game is ready 
+
 var isMobile: bool
 
 var dataPath = "user://playerdata.res"
@@ -70,12 +72,16 @@ var mainGameScene: PackedScene
 var upgradeScene: PackedScene
 var settingsScene: PackedScene
 
+var gameReady: bool = false #True while the main game is running 
+var gameOver: bool = false
+
 func is_mobile():
 	return OS.get_name() in ["Android", "iOS"]
 
 func vibrate(duration: int = 500):
 	if isMobile and canVibrate:
 		Input.vibrate_handheld(duration)
+
 
 func _ready() -> void:
 	

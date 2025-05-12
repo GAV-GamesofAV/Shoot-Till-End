@@ -22,46 +22,46 @@ var player
 var canMove: bool
 
 func _ready() -> void:
-	sprite.animation_finished.connect(hurt_animation_finished)
+	if not Global.gameOver:
+		sprite.animation_finished.connect(hurt_animation_finished)
 
-	healthComponent.took_damage.connect(_took_damage)
-	healthComponent.died.connect(died)
-	if sprite.sprite_frames.has_animation("run"):
-		sprite.play("run")
-
-
-	await get_tree().current_scene.mainGame_ready
+		healthComponent.took_damage.connect(_took_damage)
+		healthComponent.died.connect(died)
+		if sprite.sprite_frames.has_animation("run"):
+			sprite.play("run")
 
 
-	player = get_tree().get_first_node_in_group("Player")
+		await Global.game_ready
 
-	
-	#Initialize the chance of special ability
-	chanceOfSpecialAbility = Global.level / 100.0
-	chanceOfSpecialAbility = min(chanceOfSpecialAbility, maxChanceofSpecial)
+		player = get_tree().get_first_node_in_group("Player")
 
-	#Determine the damage and health
-	damageFactor = Global.level * 0.2 
-	damageFactor = clamp(damageFactor, 1, maxDamageFactor)
-	healthFactor = Global.level * 0.2
-	healthFactor = clamp(healthFactor, 1, maxHealthFactor)
-	
+		
+		#Initialize the chance of special ability
+		chanceOfSpecialAbility = Global.level / 100.0
+		chanceOfSpecialAbility = min(chanceOfSpecialAbility, maxChanceofSpecial)
 
-	#Initialize the chance of mutatn
-	chanceOfMutant = Global.level / 1000.0
-	chanceOfMutant = min(chanceOfMutant, maxChanceOfMutant)
+		#Determine the damage and health
+		damageFactor = Global.level * 0.2 
+		damageFactor = clamp(damageFactor, 1, maxDamageFactor)
+		healthFactor = Global.level * 0.2
+		healthFactor = clamp(healthFactor, 1, maxHealthFactor)
+		
 
-	#Is mutant
-	isMutant = randf() < chanceOfMutant
-	if isMutant:
-		scale = Vector2(1.5, 1.5)
-		damageFactor *= 2.0
-		healthFactor *= 2.0
+		#Initialize the chance of mutatn
+		chanceOfMutant = Global.level / 1000.0
+		chanceOfMutant = min(chanceOfMutant, maxChanceOfMutant)
 
-	enemy_ready.emit()
+		#Is mutant
+		isMutant = randf() < chanceOfMutant
+		if isMutant:
+			scale = Vector2(1.5, 1.5)
+			damageFactor *= 2.0
+			healthFactor *= 2.0
+
+		enemy_ready.emit()
 
 func _physics_process(_delta: float) -> void:
-	if player:
+	if player and Global.gameReady and not Global.gameOver:
 		var direction
 
 		if canMove:

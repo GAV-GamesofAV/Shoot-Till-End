@@ -42,25 +42,26 @@ func _ready() -> void:
 	
 
 func _process(_delta: float) -> void:
-	if not isMutant: 
-		if sprite.animation != "run":
-			canMove = false
-		else:
-			canMove = true
-	
-	#Set the transparency
-	var mat: ShaderMaterial = sprite.material
-	# var currentTransparency = mat.get_shader_parameter("transparency")
-	# var newTransparency = lerp(currentTransparency, targetTransparency, delta * fadeSpeed)
+	if Global.gameReady:
+		if not isMutant: 
+			if sprite.animation != "run":
+				canMove = false
+			else:
+				canMove = true
+		
+		#Set the transparency
+		var mat: ShaderMaterial = sprite.material
+		# var currentTransparency = mat.get_shader_parameter("transparency")
+		# var newTransparency = lerp(currentTransparency, targetTransparency, delta * fadeSpeed)
 
-	mat.set_shader_parameter("transparency", targetTransparency)
+		mat.set_shader_parameter("transparency", targetTransparency)
 
-	#Hide it 
-	if canHide:
-		if global_position.distance_to(player.global_position) <= distanceToHide and not usedInvisibility:
-			make_invisible()
-			invisibiltyTimer.start()
-	
+		#Hide it 
+		if canHide:
+			if global_position.distance_to(player.global_position) <= distanceToHide and not usedInvisibility:
+				make_invisible()
+				invisibiltyTimer.start()
+		
 
 func _on_hit_box_attacked() -> void:
 	queue_free()

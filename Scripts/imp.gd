@@ -35,14 +35,14 @@ func _ready():
 
 
 func _process(_delta: float) -> void:
-
-	#Shooting mechanism
-	if canShoot:
-		if global_position.distance_to(player.global_position) <= distanceToShoot:
-			canMove = false
-			shoot()
-		else:
-			canMove = true
+	if Global.gameReady:
+		#Shooting mechanism
+		if canShoot:
+			if global_position.distance_to(player.global_position) <= distanceToShoot:
+				canMove = false
+				shoot()
+			else:
+				canMove = true
 
 func shoot():
 	var directionToPlayer: Vector2 = (player.global_position - shootingPoint.global_position).normalized()

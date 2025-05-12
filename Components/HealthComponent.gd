@@ -9,6 +9,7 @@ signal died
 @export var healthBar: ProgressBar
 
 func _ready() -> void:
+	await Global.game_ready
 	healthBar.max_value = health
 	healthBar.value = health
 

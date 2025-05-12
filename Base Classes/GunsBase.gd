@@ -13,7 +13,7 @@ func _ready() -> void:
 		
 		
 func _process(_delta: float) -> void:
-	if playerGun:
+	if playerGun and Global.gameReady and not Global.gameOver:
 		#PC controls
 		if not Global.isMobile:
 			#Rotate

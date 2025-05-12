@@ -20,16 +20,17 @@ func _ready() -> void:
 	canFly = randf() < chanceOfSpecialAbility
 
 func _process(_delta):
-	if not isMutant:
-		if sprite.animation == "run" or sprite.animation == "flying":
-			canMove = true
-		else:
-			canMove = false
+	if Global.gameReady:
+		if not isMutant:
+			if sprite.animation == "run" or sprite.animation == "flying":
+				canMove = true
+			else:
+				canMove = false
 
-	if player:
-		if canFly and global_position.distance_to(player.global_position) <= distanceForFlying and not flying:
-			fly()
-	
+		if player:
+			if canFly and global_position.distance_to(player.global_position) <= distanceForFlying and not flying:
+				fly()
+		
 
 func _on_hit_box_attacked() -> void:
 	queue_free()
