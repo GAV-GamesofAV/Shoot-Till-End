@@ -54,6 +54,9 @@ func _physics_process(_delta: float) -> void:
 func game_over():
 	Global.gameReady = false
 	Global.gameOver = true
+	call_deferred("_change_scene")
+
+func _change_scene():
 	get_tree().change_scene_to_packed(Global.mainMenuScene)
 
 func _took_damage():

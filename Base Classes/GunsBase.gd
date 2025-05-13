@@ -10,6 +10,7 @@ class_name Guns
 func _ready() -> void:
 	if playerGun:
 		shootingComponent.fireRate = Global.playerFireRate
+		shootingComponent.parent_ready.emit()
 		
 		
 func _process(_delta: float) -> void:

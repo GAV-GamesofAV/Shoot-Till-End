@@ -30,7 +30,9 @@ func _ready():
 		fireRate = Global.level / 3.0
 		fireRate = clamp(fireRate, minFireRate, maxFireRate)
 		shootingComponent.fireRate = fireRate
-		
+
+		shootingComponent.parent_ready.emit()
+
 
 
 

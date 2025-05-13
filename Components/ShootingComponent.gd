@@ -1,6 +1,8 @@
 extends Node
 class_name ShootingComponent
 
+signal parent_ready
+
 @export var bulletScene: PackedScene
 @export var shootingPoint: Marker2D
 @export var fireRate: float
@@ -15,15 +17,8 @@ var cooldownTimer: Timer
 func _ready() -> void:
 	if not Global.gameOver:
 		#Setup fire rate
-		await Global.game_ready
+		await parent_ready
 		
-		while not fireRate:
-			var tree = get_tree()
-			if not tree: 
-				tree = get_tree()
-			else :
-				if tree:
-					await tree.process_frame
 
 		cooldown = 1.0 / fireRate
 		cooldownTimer = Timer.new()
@@ -34,7 +29,7 @@ func _ready() -> void:
 
 	
 func shoot():
-	if not Global.gameOver:
+	if not Global.gameOver and Global.game_ready:
 		if cooldownTimer.is_stopped():
 			var bullet = bulletScene.instantiate()
 			get_tree().current_scene.add_child(bullet)
