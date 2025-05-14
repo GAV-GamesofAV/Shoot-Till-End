@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://5nkojye0bw5e"]
+
+[ext_resource type="Script" uid="uid://1wub7c5nq0pj" path="res://Scripts/power-up/speed_booster.gd" id="1_t5qf7"]
+[ext_resource type="Texture2D" uid="uid://cpb5w1rpgqjpv" path="res://Assets/Pixelated set transparent.png" id="2_mi58g"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t5qf7"]
+radius = 4.0
+height = 18.0
+
+[node name="SpeedBooster" type="Area2D"]
+script = ExtResource("1_t5qf7")
+metadata/_custom_type_script = "uid://dj4qw6e4v8dp3"
+
+[node name="PixelatedSetTransparent" type="Sprite2D" parent="."]
+position = Vector2(4.76837e-07, -2.38419e-07)
+scale = Vector2(0.01, 0.01)
+texture = ExtResource("2_mi58g")
+region_enabled = true
+region_rect = Rect2(3656, 1284, 691, 1356)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_t5qf7")

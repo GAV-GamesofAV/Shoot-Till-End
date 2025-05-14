@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b71e5cuu5mygh"]
+[gd_scene load_steps=19 format=3 uid="uid://b71e5cuu5mygh"]
 
 [ext_resource type="Script" uid="uid://bjq6r34xcsn3l" path="res://Scripts/MainGame.gd" id="1_bb2iq"]
 [ext_resource type="PackedScene" uid="uid://cil1jnbo3bdou" path="res://Scenes/ghost.tscn" id="2_18r40"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://bqr14ehplr8ci" path="res://Scripts/pause_menu.gd" id="11_tpqse"]
 [ext_resource type="FontFile" uid="uid://dlphm02wh1ehu" path="res://Assets/Fonts/04b_30/04B_30__.TTF" id="12_tpqse"]
 [ext_resource type="StyleBox" uid="uid://c7bs63y00hjjt" path="res://Scenes/buttons_style.tres" id="13_c78sm"]
+[ext_resource type="PackedScene" uid="uid://5nkojye0bw5e" path="res://Scenes/Power-Up/speed_booster.tscn" id="15_sftma"]
 
 [sub_resource type="Curve2D" id="Curve2D_kry3j"]
 _data = {
@@ -21,10 +22,25 @@ _data = {
 }
 point_count = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sftma"]
+bg_color = Color(0.602375, 0.4715, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_erobn"]
+bg_color = Color(0.858824, 0.705882, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [node name="MainGame" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_bb2iq")
 enemies = Array[PackedScene]([ExtResource("2_18r40"), ExtResource("3_tpqse"), ExtResource("4_c78sm")])
+powerUpScenes = Array[PackedScene]([ExtResource("15_sftma")])
 
 [node name="Room" parent="." instance=ExtResource("5_r0mdn")]
 
@@ -88,6 +104,18 @@ offset_bottom = 432.0
 [node name="GunJoystick" parent="UI/MobileControls/GunJoystickUI" instance=ExtResource("10_i47ox")]
 position = Vector2(82, 93)
 scale = Vector2(0.6, 0.6)
+
+[node name="Bars" type="Node" parent="UI"]
+
+[node name="SpeedBoostBar" type="ProgressBar" parent="UI/Bars" groups=["SpeedBoosterBar"]]
+offset_left = 3.0
+offset_top = 20.0
+offset_right = 129.0
+offset_bottom = 40.0
+theme_override_styles/background = SubResource("StyleBoxFlat_sftma")
+theme_override_styles/fill = SubResource("StyleBoxFlat_erobn")
+value = 50.0
+show_percentage = false
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_6y7pd")

@@ -6,6 +6,7 @@ extends Node2D
 
 @export var enemies: Array[PackedScene]
 
+@export var powerUpScenes: Array[PackedScene]
 
 #Exported variables
 
@@ -14,6 +15,8 @@ extends Node2D
 @export var maxSpawnLimit: float = 1.5
 @export var minSpawnLimit: float = 0.5
 
+@export var minPowerUpSpawnTime: int = 10
+@export var maxPowerUpSpawnTime: int = 20
 
 #Variables
 var playArea: Background
@@ -60,6 +63,12 @@ func _ready() -> void:
 
 	$EnemySpawnTimer.timeout.connect(spawnEnemy)
 
+	#Set-up bars
+	$UI/Bars/SpeedBoostBar.hide()
+
+	#Set-up power up spawn
+	$PowerUpSpawnTimer.timeout.connect(spawn_power_up)
+	start_power_up_spawn_timer()
 	
 	Global.game_ready.emit()
 	Global.gameReady = true
@@ -69,6 +78,7 @@ func _ready() -> void:
 
 	if Global.gameReady:
 		$EnemySpawnTimer.start()
+
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -108,8 +118,20 @@ func spawnEnemy():
 		Global.game_ready.emit()
 
 
-
+func start_power_up_spawn_timer():
+	$PowerUpSpawnTimer.wait_time = randi_range(minPowerUpSpawnTime, maxPowerUpSpawnTime)
+	$PowerUpSpawnTimer.start()
 	
+func spawn_power_up():
+	
+	var powerUp: Collectible = powerUpScenes[randi() % powerUpScenes.size()].instantiate()
+	var pos: Vector2 = Vector2(
+		randf_range(playArea.minX + 20, playArea.maxX - 20),
+		randf_range(playArea.minY + 20, playArea.maxY - 20)
+	)
+	powerUp.position = pos
+	add_child(powerUp)
+	start_power_up_spawn_timer()
 
 
 func shake_camera(intensity, rotationIntensity):

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Shoot till end"
-config/version="beta 1.1"
+config/version="beta 1.3"
 run/main_scene="uid://db0yl1fmfknue"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="uid://bwmpbp2nyu87c"
@@ -41,6 +41,7 @@ Player=""
 Enemies=""
 Background=""
 PlayArea=""
+SpeedBoosterBar=""
 
 [input]
 
