@@ -9,6 +9,7 @@ height = 18.0
 
 [node name="SpeedBooster" type="Area2D"]
 script = ExtResource("1_t5qf7")
+duration = 3
 metadata/_custom_type_script = "uid://dj4qw6e4v8dp3"
 
 [node name="PixelatedSetTransparent" type="Sprite2D" parent="."]
