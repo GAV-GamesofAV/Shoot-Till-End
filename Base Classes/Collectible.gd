@@ -4,10 +4,11 @@ class_name Collectible
 signal is_ready #Emitted when the Collectible class's _ready is done
 signal collected # Emitted when the player enters
 signal work_done #Emitted when the collectible's work is done
+signal collected_done #Emitted when the _collected is completed inside collectibles
 
 @export var duration: int
 
-var timer: Timer
+var timer: Timer #Disconnect the timeout when collected
 
 func _ready() -> void:
 	monitoring = true
@@ -26,6 +27,8 @@ func _deferred_ready():
 	work_done.connect(_work_done)
 	timer.timeout.connect(_work_done)
 
+	collected.connect(_collected)
+
 	add_child(timer)
 
 	timer.start()
@@ -38,8 +41,15 @@ func _on_body_entered(body:Node2D) -> void:
 		hide()
 		call_deferred("_disable_monitoring")
 
+#Overwrite this function in child script with super()
+func _collected():
+	timer.queue_free()
+	print("_collected from collectible ran")
+	call_deferred("_deferred_collected")
 
-	
+func _deferred_collected():
+	collected_done.emit()
+
 func _disable_monitoring():monitoring = false
 
 func _work_done():queue_free()

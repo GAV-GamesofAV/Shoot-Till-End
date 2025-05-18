@@ -19,17 +19,19 @@ var progressBar: ProgressBar
 func _ready() -> void:
 	super()
 	await is_ready
-	if Global.gameReady and not Global.gameOver:
-		collected.connect(_collected)
 
 func _process(delta: float) -> void:
 	if progressBar:
 		progressBar.value = speedBoostTimer.time_left
 
 
-
 func _collected():
 	if Global.gameReady and not Global.gameOver:
+		
+		super()
+		print("power up waiting for collected_done")
+		await collected_done
+		print("power up wait end")
 		increasingFactor = randf_range(minIncreaseFactor, maxIncreaseFactor)
 		#First convert the speed into float then multiply and convert into int
 		Global.player.speed = int(float(Global.player.speed) * increasingFactor)
@@ -48,6 +50,13 @@ func _collected():
 		progressBar = get_tree().get_first_node_in_group("SpeedBoosterBar")
 		progressBar.max_value = speedBoostTime
 		progressBar.show()
+
+		#Debugging
+		print("Speed Booster time : " + str(speedBoostTime))
+		print("Speed Booster timer : " + str(speedBoostTimer))
+		print("Speed booter timer wait time : " + str(speedBoostTimer.wait_time))
+		
+	
 
 
 func _time_out():
