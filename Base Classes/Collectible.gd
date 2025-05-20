@@ -44,7 +44,6 @@ func _on_body_entered(body:Node2D) -> void:
 #Overwrite this function in child script with super()
 func _collected():
 	timer.queue_free()
-	print("_collected from collectible ran")
 	call_deferred("_deferred_collected")
 
 func _deferred_collected():
