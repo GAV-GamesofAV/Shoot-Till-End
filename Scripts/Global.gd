@@ -106,6 +106,7 @@ func _ready() -> void:
 	calculate_required_xp()
 
 func set_message(msg: String, dur: float):
+	messageBox.modulate.a = 1.0
 	if messageBox:
 		messageBox.text = msg
 	else:
