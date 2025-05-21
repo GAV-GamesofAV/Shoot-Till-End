@@ -70,6 +70,10 @@ func _ready() -> void:
 	$PowerUpSpawnTimer.timeout.connect(spawn_power_up)
 	start_power_up_spawn_timer()
 	
+	#Set message box
+	Global.messageBox = $UI/MessageBox
+
+	#Emit the ready signals
 	Global.game_ready.emit()
 	Global.gameReady = true
 

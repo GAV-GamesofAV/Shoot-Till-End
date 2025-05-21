@@ -41,7 +41,9 @@ var requiredXpGrowthFactor: float = 1.3
 
 var statPoints: int = 0
 
+#Nodes
 var player: Character
+var messageBox: Label
 
 var _score: int
 var _highScore: int
@@ -103,6 +105,19 @@ func _ready() -> void:
 
 	calculate_required_xp()
 
+func set_message(msg: String, dur: float):
+	if messageBox:
+		messageBox.text = msg
+	else:
+		print("Message box isn't assigned")
+
+	await get_tree().create_timer(dur).timeout
+
+	var tween = get_tree().create_tween()
+	tween.tween_property(messageBox, "modulate:a", 0.0, 0.6)
+	await tween.finished
+
+	messageBox.text = ""
 
 func level_up():
 	level += 1

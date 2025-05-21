@@ -17,6 +17,7 @@ var speedBoostTimer: Timer
 var progressBar: ProgressBar
 
 func _ready() -> void:
+	Global.set_message("Speed Booster Spawned!", 3.0)
 	super()
 	await is_ready
 
@@ -27,7 +28,7 @@ func _process(delta: float) -> void:
 
 func _collected():
 	if Global.gameReady and not Global.gameOver:
-		
+
 		super()
 		await collected_done
 		increasingFactor = randf_range(minIncreaseFactor, maxIncreaseFactor)

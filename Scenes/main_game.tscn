@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b71e5cuu5mygh"]
+[gd_scene load_steps=20 format=3 uid="uid://b71e5cuu5mygh"]
 
 [ext_resource type="Script" uid="uid://bjq6r34xcsn3l" path="res://Scripts/MainGame.gd" id="1_bb2iq"]
 [ext_resource type="PackedScene" uid="uid://cil1jnbo3bdou" path="res://Scenes/ghost.tscn" id="2_18r40"]
@@ -35,6 +35,10 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_sftma"]
+font = ExtResource("12_tpqse")
+font_size = 20
 
 [node name="MainGame" type="Node2D"]
 y_sort_enabled = true
@@ -116,6 +120,13 @@ theme_override_styles/background = SubResource("StyleBoxFlat_sftma")
 theme_override_styles/fill = SubResource("StyleBoxFlat_erobn")
 value = 50.0
 show_percentage = false
+
+[node name="MessageBox" type="Label" parent="UI"]
+offset_right = 770.0
+offset_bottom = 66.0
+label_settings = SubResource("LabelSettings_sftma")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_6y7pd")
