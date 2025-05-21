@@ -2,16 +2,24 @@ extends Node
 class_name ShootingComponent
 
 signal parent_ready
+@export var fireRate: float:
+	set(val):
+		_fireRate = val
+		if cooldownTimer:
+			cooldownTimer.wait_time = 1.0 / val
+		
+	get():
+		return _fireRate
+
+var _fireRate: float
 
 @export var bulletScene: PackedScene
 @export var shootingPoint: Marker2D
-@export var fireRate: float
 @export var sfxPlayer: AudioStreamPlayer
 @export var shakeScreen: bool
 @export var shakeIntensity: float
 @export var shakeRotationIntensity: float
 
-var cooldown: float
 var cooldownTimer: Timer
 
 func _ready() -> void:
@@ -20,10 +28,9 @@ func _ready() -> void:
 		await parent_ready
 		
 
-		cooldown = 1.0 / fireRate
 		cooldownTimer = Timer.new()
 		add_child(cooldownTimer)
-		cooldownTimer.wait_time = cooldown
+		cooldownTimer.wait_time = 1.0 / fireRate
 		cooldownTimer.one_shot = true
 		cooldownTimer.autostart = true
 

@@ -1,11 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://dk5nvp17ukw8j"]
+[gd_scene load_steps=4 format=3 uid="uid://dk5nvp17ukw8j"]
 
-[ext_resource type="Script" uid="uid://dj4qw6e4v8dp3" path="res://Base Classes/Collectible.gd" id="1_vh4um"]
-[ext_resource type="Texture2D" uid="uid://d21fhwfa7iyj3" path="res://Assets/FireRate booster icon.png" id="2_05ft4"]
+[ext_resource type="Script" uid="uid://tc60rljfderx" path="res://Scripts/power-up/fire_rate_booster.gd" id="1_vh4um"]
+[ext_resource type="Texture2D" uid="uid://dq2vbfklcqk1w" path="res://Assets/FireRate booster icon.png" id="2_05ft4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vh4um"]
+radius = 8.0
 
 [node name="FireRateBooster" type="Area2D"]
 script = ExtResource("1_vh4um")
+duration = 3
 metadata/_custom_type_script = "uid://dj4qw6e4v8dp3"
 
-[node name="FireRateBoosterIcon" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_05ft4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_vh4um")

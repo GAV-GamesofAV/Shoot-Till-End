@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b71e5cuu5mygh"]
+[gd_scene load_steps=23 format=3 uid="uid://b71e5cuu5mygh"]
 
 [ext_resource type="Script" uid="uid://bjq6r34xcsn3l" path="res://Scripts/MainGame.gd" id="1_bb2iq"]
 [ext_resource type="PackedScene" uid="uid://cil1jnbo3bdou" path="res://Scenes/ghost.tscn" id="2_18r40"]
@@ -15,6 +15,7 @@
 [ext_resource type="FontFile" uid="uid://dlphm02wh1ehu" path="res://Assets/Fonts/04b_30/04B_30__.TTF" id="12_tpqse"]
 [ext_resource type="StyleBox" uid="uid://c7bs63y00hjjt" path="res://Scenes/buttons_style.tres" id="13_c78sm"]
 [ext_resource type="PackedScene" uid="uid://5nkojye0bw5e" path="res://Scenes/Power-Up/speed_booster.tscn" id="15_sftma"]
+[ext_resource type="PackedScene" uid="uid://dk5nvp17ukw8j" path="res://Scenes/Power-Up/fire_rate_booster.tscn" id="16_erobn"]
 
 [sub_resource type="Curve2D" id="Curve2D_kry3j"]
 _data = {
@@ -36,6 +37,20 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vc13p"]
+bg_color = Color(0.678825, 0.171469, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gpk8t"]
+bg_color = Color(1, 0.270588, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [sub_resource type="LabelSettings" id="LabelSettings_sftma"]
 font = ExtResource("12_tpqse")
 font_size = 20
@@ -44,7 +59,7 @@ font_size = 20
 y_sort_enabled = true
 script = ExtResource("1_bb2iq")
 enemies = Array[PackedScene]([ExtResource("2_18r40"), ExtResource("3_tpqse"), ExtResource("4_c78sm")])
-powerUpScenes = Array[PackedScene]([ExtResource("15_sftma")])
+powerUpScenes = Array[PackedScene]([ExtResource("15_sftma"), ExtResource("16_erobn")])
 
 [node name="Room" parent="." instance=ExtResource("5_r0mdn")]
 
@@ -118,6 +133,16 @@ offset_right = 129.0
 offset_bottom = 40.0
 theme_override_styles/background = SubResource("StyleBoxFlat_sftma")
 theme_override_styles/fill = SubResource("StyleBoxFlat_erobn")
+value = 50.0
+show_percentage = false
+
+[node name="FireRateBoostBar" type="ProgressBar" parent="UI/Bars" groups=["FireRateBoosterBar"]]
+offset_left = 3.0
+offset_top = 52.0
+offset_right = 129.0
+offset_bottom = 72.0
+theme_override_styles/background = SubResource("StyleBoxFlat_vc13p")
+theme_override_styles/fill = SubResource("StyleBoxFlat_gpk8t")
 value = 50.0
 show_percentage = false
 

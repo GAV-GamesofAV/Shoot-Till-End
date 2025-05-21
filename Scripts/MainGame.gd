@@ -65,6 +65,7 @@ func _ready() -> void:
 
 	#Set-up bars
 	$UI/Bars/SpeedBoostBar.hide()
+	$UI/Bars/FireRateBoostBar.hide()
 
 	#Set-up power up spawn
 	$PowerUpSpawnTimer.timeout.connect(spawn_power_up)
