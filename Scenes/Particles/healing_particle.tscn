@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://bd1k3qysnweqd"]
+
+[ext_resource type="Texture2D" uid="uid://k2lyabtq2ihw" path="res://Assets/Healing Sprite.png" id="1_52u81"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_52u81"]
+atlas = ExtResource("1_52u81")
+region = Rect2(0, 0, 24, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ljpq"]
+atlas = ExtResource("1_52u81")
+region = Rect2(24, 0, 24, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxdo5"]
+atlas = ExtResource("1_52u81")
+region = Rect2(48, 0, 24, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a6leu"]
+atlas = ExtResource("1_52u81")
+region = Rect2(72, 0, 24, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fnefl"]
+atlas = ExtResource("1_52u81")
+region = Rect2(96, 0, 24, 30)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f23gb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52u81")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ljpq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxdo5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a6leu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fnefl")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="HealingParticle" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_f23gb")
+autoplay = "default"

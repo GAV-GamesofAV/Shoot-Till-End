@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4rw0vv3doknb"]
+
+[ext_resource type="Script" uid="uid://cs8p64akln8jb" path="res://Scripts/power-up/health_increaser.gd" id="1_r4pi3"]
+[ext_resource type="Texture2D" uid="uid://bnjbg442hym0o" path="res://Assets/pixel-heart.png" id="2_dgvpi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r4pi3"]
+radius = 7.07107
+
+[node name="HealthIncreaser" type="Area2D"]
+script = ExtResource("1_r4pi3")
+duration = 5
+metadata/_custom_type_script = "uid://dj4qw6e4v8dp3"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, 2)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_dgvpi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_r4pi3")

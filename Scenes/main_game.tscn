@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b71e5cuu5mygh"]
+[gd_scene load_steps=24 format=3 uid="uid://b71e5cuu5mygh"]
 
 [ext_resource type="Script" uid="uid://bjq6r34xcsn3l" path="res://Scripts/MainGame.gd" id="1_bb2iq"]
 [ext_resource type="PackedScene" uid="uid://cil1jnbo3bdou" path="res://Scenes/ghost.tscn" id="2_18r40"]
@@ -16,6 +16,7 @@
 [ext_resource type="StyleBox" uid="uid://c7bs63y00hjjt" path="res://Scenes/buttons_style.tres" id="13_c78sm"]
 [ext_resource type="PackedScene" uid="uid://5nkojye0bw5e" path="res://Scenes/Power-Up/speed_booster.tscn" id="15_sftma"]
 [ext_resource type="PackedScene" uid="uid://dk5nvp17ukw8j" path="res://Scenes/Power-Up/fire_rate_booster.tscn" id="16_erobn"]
+[ext_resource type="PackedScene" uid="uid://b4rw0vv3doknb" path="res://Scenes/Power-Up/health_increaser.tscn" id="17_vc13p"]
 
 [sub_resource type="Curve2D" id="Curve2D_kry3j"]
 _data = {
@@ -59,7 +60,7 @@ font_size = 20
 y_sort_enabled = true
 script = ExtResource("1_bb2iq")
 enemies = Array[PackedScene]([ExtResource("2_18r40"), ExtResource("3_tpqse"), ExtResource("4_c78sm")])
-powerUpScenes = Array[PackedScene]([ExtResource("15_sftma"), ExtResource("16_erobn")])
+powerUpScenes = Array[PackedScene]([ExtResource("15_sftma"), ExtResource("16_erobn"), ExtResource("17_vc13p")])
 
 [node name="Room" parent="." instance=ExtResource("5_r0mdn")]
 

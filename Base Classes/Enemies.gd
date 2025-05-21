@@ -22,6 +22,7 @@ var player
 var canMove: bool
 
 func _ready() -> void:
+	super()
 	if not Global.gameOver:
 		sprite.animation_finished.connect(hurt_animation_finished)
 

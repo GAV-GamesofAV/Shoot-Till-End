@@ -8,7 +8,7 @@ signal collected_done #Emitted when the _collected is completed inside collectib
 
 @export var duration: int
 
-var timer: Timer #Disconnect the timeout when collected
+var timer: Timer 
 
 func _ready() -> void:
 	monitoring = true

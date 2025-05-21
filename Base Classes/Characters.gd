@@ -11,6 +11,7 @@ class_name Character
 @export var shakeRotationIntensity: float = 1.5
 
 func _ready() -> void:
+	super()
 	gun.joystick = gunJoystick
 
 	healthComponent.died.connect(game_over)
